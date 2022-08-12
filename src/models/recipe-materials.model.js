@@ -1,16 +1,18 @@
 const mongoose = require("moongose")
+const {Schema} = mongoose
 
-
-const recipeMaterialsSchemma = new mongoose.Schema({
+const recipeMaterialsSchemma = new Schema({
     recipeId: {
-        type: string,
+        type: Schema.Types.ObjectId,
         required: true,
-        minLength: 3
+        minLength: 3,
+        ref: "recipes"
     },
-    materialID: {
-        type: string,
+    materialId: {
+        type: Schema.Types.ObjectId,
         required: true,
-        minLength: 3
+        minLength: 3, 
+        ref: "materials"
     },
     quantity: {
         type: number,
