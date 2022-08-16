@@ -40,7 +40,7 @@ router.patch("/clients/:id", async (request, response) => {
     }
 })
 
-router.delete("/clients/:id", auth, async(request, response) => {
+router.delete("/clients/:id", async(request, response) => {
     const {id} = request.params
     try{
         const client= await deleteClient(id)

@@ -1,6 +1,6 @@
 const {createQuote, updateQuote, deleteQuote} = require("../usecases/quote.usecase")
-const express = requiere("express")
-const router = express.router()
+const express = require("express")
+const router = express.Router()
 
 router.post("/quote", async(request, response) =>{
     try{
@@ -23,7 +23,7 @@ router.post("/quote", async(request, response) =>{
 
 })
 
-router.patch("/quote/:id", auth, async (request, response)=>{
+router.patch("/quote/:id", async (request, response)=>{
     try{
         const quote = await updateQuote(id, request.body)
         response.json({
@@ -41,7 +41,7 @@ router.patch("/quote/:id", auth, async (request, response)=>{
     }
 })
 
-router.delete("/quote/:id", auth, async(request, response)=>{
+router.delete("/quote/:id", async(request, response)=>{
     const {id} = request.params
     try{
         const quote = await deleteQuote(id)

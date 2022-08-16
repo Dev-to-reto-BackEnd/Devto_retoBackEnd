@@ -1,7 +1,7 @@
 const {createMaterial, updateMaterial, deleteMaterial} = require("../usecases/material.usecase")
 
-const express = requiere("express")
-const router = express.router()
+const express = require("express")
+const router = express.Router()
 
 router.post("/material", async (request, response)=>{
     try{
@@ -21,7 +21,7 @@ router.post("/material", async (request, response)=>{
     }
 })
 
-router.patch("/material/:id", auth, async (request, response)=>{
+router.patch("/material/:id", async (request, response)=>{
     const {id} = request.params
     try{
         const material = await updateMaterial(id, request.body)
@@ -40,7 +40,7 @@ router.patch("/material/:id", auth, async (request, response)=>{
     }
 })
 
-router.delete("/material/:id", auth, async(request, response)=>{
+router.delete("/material/:id", async(request, response)=>{
     const {id} = request.params
     try{
         const material = await deleteMaterial(id)

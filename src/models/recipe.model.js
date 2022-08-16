@@ -1,33 +1,33 @@
-const mongoose = requiere ("mongoose")
+const mongoose = require ("mongoose")
 
 const recipeSchema = new mongoose.Schema({
     SKU : {
-        type: id,
+        type: String ,
         required: true,
         maxLength: 10,
     },
     name : {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     unit:{
-        type: string,
+        type: String,
         required: true,
         maxLength: 10
     },
     lastUpdate:{
-        type: date
+        type: Date
     },
     createdAt:{
-        type:date
+        type: Date
     },
     tags:{
         type: Array,
         required:true
     },
     type:{
-        type: string,
+        type: String,
         required: true, //operative, work, equipment, outsoucing, people, etc
     }
 })

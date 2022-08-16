@@ -1,23 +1,23 @@
-const mongoose = require("moongose")
+const mongoose = require("mongoose")
 
 const quoterSchemma = new mongoose.Schema({
     firstName: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     lastName: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     email : {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     password:{
-        type: string,
+        type: String,
         required: true, 
         minLength: 8
     },
@@ -25,18 +25,18 @@ const quoterSchemma = new mongoose.Schema({
         type: Boolean,
     },
     businessName:{
-        type: string,
+        type: String,
         required: false,
         minLength:5
     },
     RFC:{
-        type:string,
+        type:String,
         required:true,
         minLength:12,
         maxLength:13
     },
     street: {
-        type:string,
+        type:String,
         required:true
     },
     extNumber:{
@@ -52,20 +52,20 @@ const quoterSchemma = new mongoose.Schema({
         required:true
     },
     neighborhood:{
-        type:string,
+        type:String,
         required: true
     },
     state:{
-        type:string, 
+        type:String, 
         required: true
     },
     createdAt:{
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     logo:{
-        type:string
+        type:String
     }
 })
 

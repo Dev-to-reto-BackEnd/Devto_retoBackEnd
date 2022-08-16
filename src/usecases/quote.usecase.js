@@ -1,5 +1,5 @@
 const Quote = require("../models/quote.model")
-const mongoose = requiere("mongoose")
+const mongoose = require("mongoose")
 
 const createQuote = async (data) => {
     const QuoteData = Quote.create(data)

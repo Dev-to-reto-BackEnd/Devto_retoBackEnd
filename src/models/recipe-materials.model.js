@@ -1,4 +1,4 @@
-const mongoose = require("moongose")
+const mongoose = require("mongoose")
 const {Schema} = mongoose
 
 const recipeMaterialsSchemma = new Schema({
@@ -15,12 +15,12 @@ const recipeMaterialsSchemma = new Schema({
         ref: "materials"
     },
     quantity: {
-        type: number,
+        type: Number,
         required: true,
         minLength: 1
     },
     createdAt: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     }

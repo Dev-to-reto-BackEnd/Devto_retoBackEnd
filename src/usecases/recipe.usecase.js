@@ -1,5 +1,5 @@
 const Recipe = require("../models/recipe.model")
-const mongoose = requiere("mongoose")
+const mongoose = require("mongoose")
 
 const createRecipe = async (data) => {
     const recipeData = Recipe.create(data)

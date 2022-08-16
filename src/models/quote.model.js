@@ -1,48 +1,48 @@
-const mongoose = require("moongose")
+const mongoose = require("mongoose")
 
 
 const quoteSchemma = new mongoose.Schema({
     clientId: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     quoteId: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     expirationDate: {
-        type: date,
+        type: Date,
         required: true,
         minLength: 1
     },
     profit: {
-        type: number,
+        type: Number,
         required: true,
         minLength: 1
     }, 
     riskFactor: {
-        type: number,
+        type: Number,
         required: true,
         minLength: 1
     },
     financing: {
-        type: number,
+        type: Number,
         required: true,
         minLength: 1
     },
     createdAt: {
-        type: string,
+        type: String,
         required: true,
         minLength: 3
     },
     note: {
-        type: string,
+        type: String,
         required: false,
     },
     photos: {
-        type: string,
+        type: String,
         required: true,
     }
 })

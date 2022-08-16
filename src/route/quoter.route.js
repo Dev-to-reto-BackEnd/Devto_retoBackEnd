@@ -40,7 +40,7 @@ router.patch("/quoters/:id", async (request, response) => {
     }
 })
 
-router.delete("/quoters/:id", auth, async(request, response) => {
+router.delete("/quoters/:id", async(request, response) => {
     const {id} = request.params
     try{
         const quoter= await deleteQuoter(id)

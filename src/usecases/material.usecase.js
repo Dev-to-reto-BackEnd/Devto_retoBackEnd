@@ -1,5 +1,5 @@
 const createError = require("http-errors")
-const Material = requiere("../models/material.model")
+const Material = require("../models/material.model")
 
 const createMaterial = async(data) =>{
     const materialData = Material.create(data)
