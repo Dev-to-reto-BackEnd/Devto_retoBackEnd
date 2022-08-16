@@ -3,7 +3,9 @@ const app = express()
 const routerClients= require("./route/client.route")
 const routerMaterials= require("./route/material.route")
 const routerQuoter= require("./route/quoter.route")
-const routerRecipes= require("./route/recipe.route")
+const routerRecipe= require("./route/recipe.route")
+const routerRecipeMaterial= require("./route/recipe-materials.route")
+const routerQuote= require("./route/quote.route")
 
 //Middlewares
 app.use(express.json())
