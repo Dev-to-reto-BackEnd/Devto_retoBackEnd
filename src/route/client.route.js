@@ -1,15 +1,15 @@
-const {deleteQuoter, updateQuoter, createQuoter} = require("../usecases/quoter.usecase")
+const {deleteClient, updateClient, createClient} = require("../usecases/client.usecase")
 const express = require("express")
 const router = express.Router()
 
-router.post("/signIn", async (request, response)=>{
+router.post("/create-client", async (request, response)=>{
     try{
-        const quoter = await createQuoter(request.body)
+        const client = await createClient(request.body)
         response.status(201)
         response.json({
             success:true,
             data:{
-                quoter
+                client
             }
         })
     } catch(err){
@@ -21,14 +21,14 @@ router.post("/signIn", async (request, response)=>{
     }
 })
 
-router.patch("/quoters/:id", async (request, response) => {
+router.patch("/clients/:id", async (request, response) => {
     const {id}= request.params
     try{
-        const quoter = await updateQuoter(id, request.body)
+        const client = await updateClient(id, request.body)
         response.json({
             success: true,
             data:{
-                quoter
+                client
             }
         })
     }catch(err){
@@ -40,13 +40,13 @@ router.patch("/quoters/:id", async (request, response) => {
     }
 })
 
-router.delete("/quoters/:id", auth, async(request, response) => {
+router.delete("/clients/:id", auth, async(request, response) => {
     const {id} = request.params
     try{
-        const quoter= await deleteQuoter(id)
+        const client= await deleteClient(id)
         response.json=({
             success: true,
-            message : "Cotizador eliminado con exito"
+            message : "Cliente eliminado con exito"
         })
     }catch (err){
         response.status=(err.status || 500)
@@ -54,5 +54,6 @@ router.delete("/quoters/:id", auth, async(request, response) => {
             success:false,
             message: err.message
         })
+
     }
 })
