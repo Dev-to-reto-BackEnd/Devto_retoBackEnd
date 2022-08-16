@@ -60,7 +60,9 @@ const quoterSchemma = new mongoose.Schema({
         required: true
     },
     createdAt:{
-        type:date
+        type: string,
+        required: true,
+        minLength: 3
     },
     logo:{
         type:string
