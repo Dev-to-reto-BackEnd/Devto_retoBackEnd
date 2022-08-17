@@ -1,7 +1,22 @@
-const {createMaterial, updateMaterial, deleteMaterial} = require("../usecases/material.usecase")
+const {getMaterial, createMaterial, updateMaterial, deleteMaterial} = require("../usecases/material.usecase")
 
 const express = require("express")
 const router = express.Router()
+
+router.get("/", async (request, response) => {
+    try {
+      const material = await getMaterial()
+      response.json({
+        material
+      })
+    }catch(error) {
+      response.status(error.status || 500)
+      response.json({
+        success: true,
+        message: error.message
+      })
+    }
+  })
 
 router.post("/create", async (request, response)=>{
     try{
