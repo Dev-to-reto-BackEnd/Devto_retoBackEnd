@@ -9,6 +9,7 @@ const routerQuote= require("./route/quote.route")
 
 //Middlewares
 app.use(express.json())
+app.use("/create-client", routerClients)
 
 app.get("/", (request, response) =>{
     response.json({
@@ -16,4 +17,6 @@ app.get("/", (request, response) =>{
     })
 })
 
-module.exports
+
+
+module.exports = app

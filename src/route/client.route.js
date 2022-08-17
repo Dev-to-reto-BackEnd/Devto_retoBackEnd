@@ -2,7 +2,7 @@ const {deleteClient, updateClient, createClient} = require("../usecases/client.u
 const express = require("express")
 const router = express.Router()
 
-router.post("/create-client", async (request, response)=>{
+router.post("/", async (request, response)=>{
     try{
         const client = await createClient(request.body)
         response.status(201)
@@ -21,7 +21,7 @@ router.post("/create-client", async (request, response)=>{
     }
 })
 
-router.patch("/clients/:id", async (request, response) => {
+router.patch("/:id", async (request, response) => {
     const {id}= request.params
     try{
         const client = await updateClient(id, request.body)
