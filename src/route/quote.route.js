@@ -1,6 +1,24 @@
-const {createQuote, updateQuote, deleteQuote} = require("../usecases/quote.usecase")
+const {getQuote, createQuote, updateQuote, deleteQuote} = require("../usecases/quote.usecase")
 const express = require("express")
 const router = express.Router()
+
+router.get("/", async (request, response) => {
+    try{
+        const quote = await getQuote()
+        response.json({
+            success:true,
+            data: {
+                clients
+            }
+        })
+    } catch (err) {
+        response.status(err.status || 500)
+        response.json({
+            success:false,
+            message: err.message
+        })
+    }
+})
 
 router.post("/create", async(request, response) =>{
     try{

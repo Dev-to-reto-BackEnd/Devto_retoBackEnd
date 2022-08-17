@@ -1,6 +1,11 @@
 const RecipeMaterials = require("../models/recipe-materials.model")
 const mongoose = require("mongoose")
 
+const getRecipeMaterials = async () => {
+    const recipeMaterials = await RecipeMaterials.find({})
+    return recipeMaterials
+}
+
 const createRecipeMaterials = async (data) => {
     const recipeMaterialsData = RecipeMaterials.create(data)
     return recipeMaterialsData
@@ -16,4 +21,4 @@ const deleteRecipeMaterials = async (id, data) => {
     return "Eliminado"
 }
 
-module.exports = {createRecipeMaterials, updateRecipeMaterials, deleteRecipeMaterials}
+module.exports = {getRecipeMaterials, createRecipeMaterials, updateRecipeMaterials, deleteRecipeMaterials}

@@ -1,6 +1,24 @@
-const {createRecipeMaterials, updateRecipeMaterials, deleteRecipeMaterials} = require("../usecases/recipe-materials.usecase")
+const {getRecipeMaterials, createRecipeMaterials, updateRecipeMaterials, deleteRecipeMaterials} = require("../usecases/recipe-materials.usecase")
 const express = require("express")
 const router = express.Router()
+
+router.get("/", async (request, response) => {
+    try{
+        const recipeMaterials = await getRecipeMaterials()
+        response.json({
+            success:true,
+            data: {
+                clients
+            }
+        })
+    } catch (err) {
+        response.status(err.status || 500)
+        response.json({
+            success:false,
+            message: err.message
+        })
+    }
+})
 
 router.post("/create", async(request, response) =>{
     try{

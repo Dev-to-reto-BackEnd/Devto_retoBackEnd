@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 
 const getRecipe = async () => {
     const recipe = await Recipe.find({})
-    return material
+    return recipe
 }
 
 const createRecipe = async (data) => {
