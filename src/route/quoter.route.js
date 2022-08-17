@@ -2,7 +2,7 @@ const {deleteQuoter, updateQuoter, createQuoter} = require("../usecases/quoter.u
 const express = require("express")
 const router = express.Router()
 
-router.post("/signIn", async (request, response)=>{
+router.post("/create", async (request, response)=>{
     try{
         const quoter = await createQuoter(request.body)
         response.status(201)
@@ -21,7 +21,7 @@ router.post("/signIn", async (request, response)=>{
     }
 })
 
-router.patch("/quoters/:id", async (request, response) => {
+router.patch("/update/:id", async (request, response) => {
     const {id}= request.params
     try{
         const quoter = await updateQuoter(id, request.body)
@@ -40,7 +40,7 @@ router.patch("/quoters/:id", async (request, response) => {
     }
 })
 
-router.delete("/quoters/:id", async(request, response) => {
+router.delete("/:id", async(request, response) => {
     const {id} = request.params
     try{
         const quoter= await deleteQuoter(id)

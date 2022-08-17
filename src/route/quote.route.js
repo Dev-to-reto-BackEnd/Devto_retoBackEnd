@@ -2,7 +2,7 @@ const {createQuote, updateQuote, deleteQuote} = require("../usecases/quote.useca
 const express = require("express")
 const router = express.Router()
 
-router.post("/quote", async(request, response) =>{
+router.post("/create", async(request, response) =>{
     try{
         const quote = await createQuote()
         response.json({
@@ -23,7 +23,7 @@ router.post("/quote", async(request, response) =>{
 
 })
 
-router.patch("/quote/:id", async (request, response)=>{
+router.patch("/update/:id", async (request, response)=>{
     try{
         const quote = await updateQuote(id, request.body)
         response.json({
@@ -41,7 +41,7 @@ router.patch("/quote/:id", async (request, response)=>{
     }
 })
 
-router.delete("/quote/:id", async(request, response)=>{
+router.delete("/:id", async(request, response)=>{
     const {id} = request.params
     try{
         const quote = await deleteQuote(id)

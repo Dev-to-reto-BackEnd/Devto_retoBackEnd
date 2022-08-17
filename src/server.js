@@ -9,7 +9,13 @@ const routerQuote= require("./route/quote.route")
 
 //Middlewares
 app.use(express.json())
-app.use("/create-client", routerClients)
+app.use("/client", routerClients)
+app.use("/materials", routerMaterials)
+app.use("/quoter", routerQuoter)
+app.use("/recipe", routerRecipe)
+app.use("/recipe-materials", routerRecipeMaterial)
+app.use("/quote", routerQuote)
+
 
 app.get("/", (request, response) =>{
     response.json({

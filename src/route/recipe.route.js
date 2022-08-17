@@ -2,7 +2,7 @@ const {createRecipe,updateRecipe, deleteRecipe} = require("../usecases/recipe.us
 const express = require("express")
 const router = express.Router()
 
-router.post("/recipes", async(request, response) =>{
+router.post("/create", async(request, response) =>{
     try{
         const recipe = await createRecipe()
         response.json({
@@ -23,7 +23,7 @@ router.post("/recipes", async(request, response) =>{
 
 })
 
-router.patch("/recipes/:id", async (request, response)=>{
+router.patch("/update/:id", async (request, response)=>{
     try{
         const recipe = await updateMaterial(id, request.body)
         response.json({
@@ -41,7 +41,7 @@ router.patch("/recipes/:id", async (request, response)=>{
     }
 })
 
-router.delete("/recipes/:id", async(request, response)=>{
+router.delete("/:id", async(request, response)=>{
     const {id} = request.params
     try{
         const recipe = await deleteMaterial(id)
