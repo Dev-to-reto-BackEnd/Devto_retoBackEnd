@@ -1,6 +1,24 @@
-const {deleteClient, updateClient, createClient} = require("../usecases/client.usecase")
+const {deleteClient, updateClient, createClient, getAll} = require("../usecases/client.usecase")
 const express = require("express")
 const router = express.Router()
+
+router.get("/", async (request, response) => {
+    try{
+        const clients = await getAll()
+        response.json({
+            success:true,
+            data: {
+                clients
+            }
+        })
+    } catch (err) {
+        response.status(err.status || 500)
+        response.json({
+            success:false,
+            message: err.message
+        })
+    }
+})
 
 router.post("/create", async (request, response)=>{
     try{
