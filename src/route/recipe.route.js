@@ -1,4 +1,4 @@
-const {createRecipe,updateRecipe, deleteRecipe} = require("../usecases/recipe.usecase")
+const {createRecipe,updateRecipe, deleteRecipe, getRecipe} = require("../usecases/recipe.usecase")
 const express = require("express")
 const router = express.Router()
 
@@ -19,7 +19,7 @@ router.get("/", async (request, response) => {
 
 router.post("/create", async(request, response) =>{
     try{
-        const recipe = await createRecipe()
+        const recipe = await createRecipe(request.body)
         response.json({
             success:true,
             data:{
@@ -31,7 +31,7 @@ router.post("/create", async(request, response) =>{
     }catch(err){
         response.status(err.status || 500)
         response.json({
-            succes:false,
+            success:false,
             message: err.message
         })
     }
@@ -40,7 +40,7 @@ router.post("/create", async(request, response) =>{
 
 router.patch("/update/:id", async (request, response)=>{
     try{
-        const recipe = await updateMaterial(id, request.body)
+        const recipe = await updateRecipe(id, request.body)
         response.json({
             success:true,
             data:{
@@ -59,11 +59,11 @@ router.patch("/update/:id", async (request, response)=>{
 router.delete("/:id", async(request, response)=>{
     const {id} = request.params
     try{
-        const recipe = await deleteMaterial(id)
+        const recipe = await deleteRecipe(id)
         response.status(200)
         response.json({
             success:true,
-            message: "Se ha eliminado el material"
+            message: "Se ha eliminado la receta"
         })
     }catch(err){
         response.status(error.status || 500)

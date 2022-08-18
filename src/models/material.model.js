@@ -30,9 +30,8 @@ const materialSchemma = new mongoose.Schema({
         required: true
     },
     createdAt:{
-        type:Date
+        type:String
     }
-
 })
 
 const Material = mongoose.model("materials", materialSchemma)

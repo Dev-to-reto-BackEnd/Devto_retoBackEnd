@@ -17,10 +17,10 @@ const recipeSchema = new mongoose.Schema({
         maxLength: 10
     },
     lastUpdate:{
-        type: Date
+        type:String
     },
     createdAt:{
-        type: Date
+        type: String
     },
     tags:{
         type: Array,
