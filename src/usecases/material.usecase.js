@@ -1,6 +1,11 @@
 const createError = require("http-errors")
 const Material = require("../models/material.model")
 
+const getMaterial = async () => {
+    const material = await Material.find({})
+    return material
+}
+
 const createMaterial = async(data) =>{
     const materialData = Material.create(data)
     return materialData
@@ -15,5 +20,5 @@ const deleteMaterial = async (id, data)=>{
     return "Eliminado"
 }
 
-module.exports = {createMaterial, updateMaterial, deleteMaterial}
+module.exports = {getMaterial, createMaterial, updateMaterial, deleteMaterial}
 

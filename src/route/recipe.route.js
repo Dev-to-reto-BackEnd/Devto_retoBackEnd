@@ -2,6 +2,21 @@ const {createRecipe,updateRecipe, deleteRecipe} = require("../usecases/recipe.us
 const express = require("express")
 const router = express.Router()
 
+router.get("/", async (request, response) => {
+    try {
+      const recipe = await getRecipe()
+      response.json({
+        recipe
+      })
+    }catch(error) {
+      response.status(error.status || 500)
+      response.json({
+        success: true,
+        message: error.message
+      })
+    }
+  })
+
 router.post("/create", async(request, response) =>{
     try{
         const recipe = await createRecipe()

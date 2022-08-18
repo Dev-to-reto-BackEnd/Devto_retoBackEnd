@@ -6,6 +6,11 @@ const createClient= async (data) => {
     return clientData
 }
 
+const getAll= () => {
+    const clients = Client.find({})
+    return clients
+}
+
 const updateClient = async (id, data) => {
     const client = await Client.findByIdAndUpdate(id, data, {returnDocument:"after"})
     return client
@@ -16,4 +21,4 @@ const deleteClient = async (id) => {
     return "Eliminado"
 }
 
-module.exports = {deleteClient, updateClient, createClient}
+module.exports = {deleteClient, updateClient, createClient, getAll}
