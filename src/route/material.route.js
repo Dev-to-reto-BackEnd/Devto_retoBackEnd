@@ -20,7 +20,7 @@ router.get("/", async (request, response) => {
 
 router.post("/create", async (request, response)=>{
     try{
-        const material = await createMaterial()
+        const material = await createMaterial(request.body)
         response.json({
             succes:true,
             data:{

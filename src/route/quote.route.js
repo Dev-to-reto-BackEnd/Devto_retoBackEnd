@@ -4,7 +4,7 @@ const router = express.Router()
 
 router.post("/create", async(request, response) =>{
     try{
-        const quote = await createQuote()
+        const quote = await createQuote(request.body)
         response.json({
             success:true,
             data:{

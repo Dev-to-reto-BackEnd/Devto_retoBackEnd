@@ -13,7 +13,7 @@ const quoteSchemma = new mongoose.Schema({
         minLength: 3
     },
     expirationDate: {
-        type: Date,
+        type: String,
         required: true,
         minLength: 1
     },

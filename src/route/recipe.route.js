@@ -19,7 +19,7 @@ router.get("/", async (request, response) => {
 
 router.post("/create", async(request, response) =>{
     try{
-        const recipe = await createRecipe()
+        const recipe = await createRecipe(request.body)
         response.json({
             success:true,
             data:{
@@ -31,7 +31,7 @@ router.post("/create", async(request, response) =>{
     }catch(err){
         response.status(err.status || 500)
         response.json({
-            succes:false,
+            success:false,
             message: err.message
         })
     }

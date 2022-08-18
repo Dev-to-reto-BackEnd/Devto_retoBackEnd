@@ -4,7 +4,7 @@ const router = express.Router()
 
 router.post("/create", async(request, response) =>{
     try{
-        const recipe = await createRecipeMaterials()
+        const recipe = await createRecipeMaterials(request.body)
         response.json({
             success:true,
             data:{
