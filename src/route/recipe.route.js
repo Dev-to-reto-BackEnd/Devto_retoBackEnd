@@ -1,4 +1,4 @@
-const {createRecipe,updateRecipe, deleteRecipe} = require("../usecases/recipe.usecase")
+const {getRecipe, createRecipe, updateRecipe, deleteRecipe} = require("../usecases/recipe.usecase")
 const express = require("express")
 const router = express.Router()
 
@@ -40,7 +40,7 @@ router.post("/create", async(request, response) =>{
 
 router.patch("/update/:id", async (request, response)=>{
     try{
-        const recipe = await updateMaterial(id, request.body)
+        const recipe = await updateRecipe(id, request.body)
         response.json({
             success:true,
             data:{
@@ -59,11 +59,11 @@ router.patch("/update/:id", async (request, response)=>{
 router.delete("/:id", async(request, response)=>{
     const {id} = request.params
     try{
-        const recipe = await deleteMaterial(id)
+        const recipe = await deleteRecipe(id)
         response.status(200)
         response.json({
             success:true,
-            message: "Se ha eliminado el material"
+            message: "Se ha eliminado la receta"
         })
     }catch(err){
         response.status(error.status || 500)
