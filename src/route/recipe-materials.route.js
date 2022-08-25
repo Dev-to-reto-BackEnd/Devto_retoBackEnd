@@ -2,7 +2,7 @@ const {createRecipeMaterials, updateRecipeMaterials, deleteRecipeMaterials} = re
 const express = require("express")
 const router = express.Router()
 
-router.post("/create", async(request, response) =>{
+router.post("/", async(request, response) =>{
     try{
         const recipe = await createRecipeMaterials(request.body)
         response.json({
