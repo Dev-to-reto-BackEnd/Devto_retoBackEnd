@@ -1,21 +1,24 @@
 const mongoose = require("mongoose")
-
+const {Schema}=mongoose
+const addBusinessDays = require('date-fns/addBusinessDays')
 
 const quoteSchemma = new mongoose.Schema({
     clientId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
-        minLength: 3
+        minLength: 3,
+        ref:"clients"
     },
-    quoteId: {
-        type: String,
+    quoterId: {
+        type: Schema.Types.ObjectId,
         required: true,
-        minLength: 3
+        minLength: 3,
+        ref:"quoters"
     },
     expirationDate: {
-        type: String,
-        required: true,
-        minLength: 1
+        type: Date,
+        default: () => addBusinessDays(new Date(), 15)
+        
     },
     profit: {
         type: Number,
@@ -33,8 +36,8 @@ const quoteSchemma = new mongoose.Schema({
         minLength: 1
     },
     createdAt: {
-        type: String,
-        required: true,
+        type: Date,
+        default: ()=> new Date(),
         minLength: 3
     },
     note: {
