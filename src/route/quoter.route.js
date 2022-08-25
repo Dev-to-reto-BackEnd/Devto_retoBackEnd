@@ -2,7 +2,7 @@ const {deleteQuoter, updateQuoter, createQuoter} = require("../usecases/quoter.u
 const express = require("express")
 const router = express.Router()
 
-router.post("/create", async (request, response)=>{
+router.post("/", async (request, response)=>{
     try{
         const quoter = await createQuoter(request.body)
         response.status(201)
