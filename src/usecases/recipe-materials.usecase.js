@@ -1,10 +1,15 @@
 const RecipeMaterials = require("../models/recipe-materials.model")
+const Material = require("../models/material.model")
 
 const getRecipeMaterials = () => {
     return RecipeMaterials.find({})
 }
 
 const createRecipeMaterials = (data) => {
+    const {materialId}= data
+    const material = await Material.findById(materialId)
+    if(!material) throw new Error ("Material not found")
+
     return RecipeMaterials.create(data)
 }
 

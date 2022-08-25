@@ -32,5 +32,4 @@ const deleteQuote = (id) => {
 }
 
 
-
 module.exports = {createQuote, updateQuote, deleteQuote, getAllQuote}
