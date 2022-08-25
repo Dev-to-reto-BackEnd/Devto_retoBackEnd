@@ -1,23 +1,20 @@
-const createError = require("http-errors")
 const Material = require("../models/material.model")
 
-const getMaterial = async () => {
-    const material = await Material.find({})
-    return material
+const getMaterial = () => {
+    return Material.find({})
 }
 
-const createMaterial = async(data) =>{
-    const materialData = Material.create(data)
-    return materialData
+const createMaterial = (data) =>{
+    return Material.create(data)
 }
 
-const updateMaterial = async (id, data) =>{
-    const material = await Material.findByIdAndUpdate(id,data,{returnDocument:"after"})
-    return material
+const updateMaterial = (id, data) =>{
+    return Material.findByIdAndUpdate(id,data,{returnDocument:"after"})
 }
-const deleteMaterial = async (id, data)=>{
-    const material = await Material.findByIdAndUpdate(id,data)
-    return "Eliminado"
+
+const deleteMaterial =  (id)=>{
+    return Material.findByIdAndUpdate(id)
+    
 }
 
 module.exports = {getMaterial, createMaterial, updateMaterial, deleteMaterial}

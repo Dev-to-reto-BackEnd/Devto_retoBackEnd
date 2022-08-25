@@ -2,19 +2,17 @@ const mongoose = require("mongoose")
 const {Schema} = mongoose
 
 const quoteRecipesSchema = new Schema({
-    quoteId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        minLength: 3,
-        ref: "quote"
-    },
+    // quoteId: {
+    //     type: Schema.Types.ObjectId,
+    //     required: true,
+    //     minLength: 3,
+    //     ref: "quote"
+    // },
     recipeId: {
         type: Schema.Types.ObjectId,
-        required: true,
-        minLength: 3,
         ref: "recipes"
     },
-    quantityId: {
+    quantity: {
         type: Number,
         required: true,
         minLength: 1,

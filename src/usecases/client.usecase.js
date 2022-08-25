@@ -1,24 +1,19 @@
 const Client = require("../models/client.model")
-const mongoose = require("mongoose")
-
-const createClient= async (data) => {
-    const clientData = Client.create(data)
-    return clientData
-}
 
 const getAll= () => {
-    const clients = Client.find({})
-    return clients
+    return Client.find({})
 }
 
-const updateClient = async (id, data) => {
-    const client = await Client.findByIdAndUpdate(id, data, {returnDocument:"after"})
-    return client
+const createClient= (data) => {
+    return  Client.create(data)
 }
 
-const deleteClient = async (id) => {
-    const client = await Client.findByIdAndDelete(id)
-    return "Eliminado"
+const updateClient = (id, data) => {
+    return Client.findByIdAndUpdate(id, data, {returnDocument:"after"})
+}
+
+const deleteClient = (id) => {
+    return Client.findByIdAndDelete(id)
 }
 
 module.exports = {deleteClient, updateClient, createClient, getAll}

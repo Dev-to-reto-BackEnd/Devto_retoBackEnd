@@ -1,19 +1,19 @@
 const RecipeMaterials = require("../models/recipe-materials.model")
-const mongoose = require("mongoose")
 
-const createRecipeMaterials = async (data) => {
-    const recipeMaterialsData = RecipeMaterials.create(data)
-    return recipeMaterialsData
+const getRecipeMaterials = () => {
+    return RecipeMaterials.find({})
 }
 
-const updateRecipeMaterials = async (id, data)=>{
-    const recipeMaterials = await RecipeMaterials.findByIdAndUpdate(id, data, {returnDocument:"after"})
-    return recipeMaterials
+const createRecipeMaterials = (data) => {
+    return RecipeMaterials.create(data)
 }
 
-const deleteRecipeMaterials = async (id, data) => {
-    const recipeMaterials = await RecipeMaterials.findByIdAndDelete(id)
-    return "Eliminado"
+const updateRecipeMaterials = (id, data)=>{
+    return RecipeMaterials.findByIdAndUpdate(id, data, {returnDocument:"after"})
 }
 
-module.exports = {createRecipeMaterials, updateRecipeMaterials, deleteRecipeMaterials}
+const deleteRecipeMaterials = (id) => {
+    return RecipeMaterials.findByIdAndDelete(id)  
+}
+
+module.exports = {getRecipeMaterials, createRecipeMaterials, updateRecipeMaterials, deleteRecipeMaterials}

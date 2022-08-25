@@ -1,23 +1,25 @@
 const Recipe = require("../models/recipe.model")
+const RecipeMaterials = require ("../models/recipe-materials.model")
 
-const getRecipe = async () => {
-    const recipe = await Recipe.find({})
-    return recipe
+const getRecipe = () => {
+   return Recipe.find({})
 }
 
-const createRecipe = async (data) => {
-    const recipeData = Recipe.create(data)
-    return recipeData
+const createRecipe = (data) => {
+    const {recipeMaterialsId}= data
+
+    const recipeMaterials = await RecipeMaterials.findById(recipeMaterialsId)
+    if(!recipeMaterials) throw new Error ("Recipe Material not found")
+
+    return Recipe.create(data)
 }
 
-const updateRecipe = async (id, data)=>{
-    const recipe = await Recipe.findByIdAndUpdate(id, data, {returnDocument:"after"})
-    return recipe
+const updateRecipe = (id, data)=>{
+    return Recipe.findByIdAndUpdate(id, data, {returnDocument:"after"})
 }
 
-const deleteRecipe = async (id, data) => {
-    const recipe = await Recipe.findByIdAndDelete(id)
-    return "Eliminado"
+const deleteRecipe =  (id) => {
+    return Recipe.findByIdAndDelete(id)
 }
 
 module.exports = {getRecipe, createRecipe, updateRecipe, deleteRecipe}

@@ -5,20 +5,19 @@ const addBusinessDays = require('date-fns/addBusinessDays')
 const quoteSchemma = new mongoose.Schema({
     clientId: {
         type: Schema.Types.ObjectId,
-        required: true,
-        minLength: 3,
         ref:"clients"
     },
     quoterId: {
         type: Schema.Types.ObjectId,
-        required: true,
-        minLength: 3,
         ref:"quoters"
     },
+    quoterId: {
+        type: Schema.Types.ObjectId,
+        ref:"recipe"
+    }, 
     expirationDate: {
         type: Date,
         default: () => addBusinessDays(new Date(), 15)
-        
     },
     profit: {
         type: Number,

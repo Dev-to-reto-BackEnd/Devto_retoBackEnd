@@ -1,6 +1,9 @@
 const mongoose = require ("mongoose")
+const {Schema} = mongoose
 
+//Falta agregar las recetas de los materiales en la receta final
 const recipeSchema = new mongoose.Schema({
+    //nosotros lo generamos
     SKU : {
         type: String ,
         required: true,
@@ -11,16 +14,18 @@ const recipeSchema = new mongoose.Schema({
         required: true,
         minLength: 3
     },
-    unit:{
+    recipeMaterialId: {
+        type: Schema.Types.Array,
+        ref: "recipe-materials"
+    },
+    quantity:{
         type: String,
         required: true,
         maxLength: 10
     },
-    lastUpdate:{
-        type:String
-    },
     createdAt:{
-        type: String
+        type: Date,
+        default: ()=> new Date(),
     },
     tags:{
         type: Array,
@@ -30,6 +35,7 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         required: true, //operative, work, equipment, outsoucing, people, etc
     }
+
 })
 
 const Recipe = mongoose.model ("recipes", recipeSchema)

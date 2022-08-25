@@ -1,19 +1,19 @@
 const Quoter = require("../models/quoter.model")
-const mongoose = require("mongoose")
 
-const createQuoter= async (data) => {
-    const quoterData = Quoter.create(data)
-    return quoterData
+const getAll= () => {
+    return Quoter.find({})
 }
 
-const updateQuoter = async (id, data) => {
-    const quoter = await Quoter.findByIdAndUpdate(id, data, {returnDocument:"after"})
-    return quoter
+const createQuoter= (data) => {
+    return Quoter.create(data)
 }
 
-const deleteQuoter = async (id) => {
-    const quoter = await Quoter.findByIdAndDelete(id)
-    return "Eliminado"
+const updateQuoter =  (id, data) => {
+    return Quoter.findByIdAndUpdate(id, data, {returnDocument:"after"})
 }
 
-module.exports = {deleteQuoter, updateQuoter, createQuoter}
+const deleteQuoter = (id) => {
+    return Quoter.findByIdAndDelete(id)
+}
+
+module.exports = {getAll, deleteQuoter, updateQuoter, createQuoter}
