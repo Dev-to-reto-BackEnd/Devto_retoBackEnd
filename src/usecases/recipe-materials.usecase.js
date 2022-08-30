@@ -5,7 +5,7 @@ const getRecipeMaterials = () => {
     return RecipeMaterials.find({})
 }
 
-const createRecipeMaterials = (data) => {
+const createRecipeMaterials = async (data) => {
     const {materialId}= data
     const material = await Material.findById(materialId)
     if(!material) throw new Error ("Material not found")

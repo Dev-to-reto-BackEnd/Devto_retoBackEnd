@@ -13,8 +13,9 @@ const quoterSchemma = new mongoose.Schema({
     },
     email : {
         type: String,
-        required: true,
-        minLength: 3
+        match: /^.*@.*\..*$/,  //Que coincida con lo que yo le diga
+        required:true,
+        unique:true
     },
     password:{
         type: String,

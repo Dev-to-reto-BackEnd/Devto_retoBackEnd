@@ -6,6 +6,7 @@ const routerQuoter= require("./route/quoter.route")
 const routerRecipe= require("./route/recipe.route")
 const routerRecipeMaterial= require("./route/recipe-materials.route")
 const routerQuote= require("./route/quote.route")
+const routerLogin= require("./route/auth.route")
 
 const app = express()
 
@@ -34,5 +35,6 @@ app.use("/quoter", routerQuoter)
 app.use("/recipe", routerRecipe)
 app.use("/recipe-materials", routerRecipeMaterial)
 app.use("/quote", routerQuote)
+app.use("/login", routerLogin)
 
 module.exports = app

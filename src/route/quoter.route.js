@@ -1,6 +1,11 @@
-const {deleteQuoter, updateQuoter, createQuoter} = require("../usecases/quoter.usecase")
+const {deleteQuoter, updateQuoter, createQuoter, getAll, getById} = require("../usecases/quoter.usecase")
 const express = require("express")
+const authMiddleware = require("../middlewares/auth.middlewares")
+
 const router = express.Router()
+
+//Middleware de auth
+// router.use(authMiddleware)
 
 router.post("/", async (request, response)=>{
     try{
@@ -56,5 +61,43 @@ router.delete("/:id", async(request, response) => {
         })
     }
 })
+
+router.get("/", async (request, response) => {
+    try{
+        const quoters = await getAll()
+        response.json({
+            success:true,
+            data: {
+                quoters
+            }
+        })
+    } catch (err) {
+        response.status(err.status || 500)
+        response.json({
+            success:false,
+            message: err.message
+        })
+    }
+})
+
+// router.get("/detail",  async (request, response) => {
+//     console.log("request en la ruta", request.userId)
+//     console.log("EStamos en detalle")
+//     try{
+//         const quoter = await getById(request.userId)
+//         response.json({
+//             success:true,
+//             data: {
+//                 quoter
+//             }
+//         })
+//     } catch (err) {
+//         response.status(err.status || 500)
+//         response.json({
+//             success:false,
+//             message: err.message
+//         })
+//     }
+// })
 
 module.exports = router

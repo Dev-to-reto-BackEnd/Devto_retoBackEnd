@@ -3,11 +3,11 @@ const {Schema} = mongoose
 
 const recipeMaterialsSchemma = new Schema({
     //recipiId esta ligado a recipe
-    // recipeId: {
-    //     type: Schema.Types.ObjectId,
-    //     minLength: 3,
-    //     ref: "recipes"
-    // },
+    recipeId: {
+        type: Schema.Types.ObjectId,
+        minLength: 3,
+        ref: "recipes"
+    },
     //ligado a materials
     // Replantear materialID, que sea un arry de objetos (materiales)
     materialId: {

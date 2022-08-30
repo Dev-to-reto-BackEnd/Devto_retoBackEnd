@@ -5,7 +5,7 @@ const getRecipe = () => {
    return Recipe.find({})
 }
 
-const createRecipe = (data) => {
+const createRecipe = async (data) => {
     const {recipeMaterialsId}= data
 
     const recipeMaterials = await RecipeMaterials.findById(recipeMaterialsId)
