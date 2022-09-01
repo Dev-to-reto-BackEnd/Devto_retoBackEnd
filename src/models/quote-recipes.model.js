@@ -2,12 +2,10 @@ const mongoose = require("mongoose")
 const {Schema} = mongoose
 
 const quoteRecipesSchema = new Schema({
-    // quoteId: {
-    //     type: Schema.Types.ObjectId,
-    //     required: true,
-    //     minLength: 3,
-    //     ref: "quote"
-    // },
+    quoteId: {
+        type: Schema.Types.ObjectId,
+        ref: "quote"
+    },
     recipeId: {
         type: Schema.Types.ObjectId,
         ref: "recipes"
@@ -18,9 +16,8 @@ const quoteRecipesSchema = new Schema({
         minLength: 1,
     },
     createdAt:{
-        type: String,
-        required: true,
-        minLength: 3
+        type: Date,
+        default: ()=> new Date()
     }
 })
 

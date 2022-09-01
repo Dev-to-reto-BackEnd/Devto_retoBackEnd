@@ -1,8 +1,9 @@
 const {deleteClient, updateClient, createClient, getAll} = require("../usecases/client.usecase")
 const express = require("express")
 const router = express.Router()
+const authMiddleware = require("../middlewares/auth.middlewares")
 
-router.get("/", async (request, response) => {
+router.get("/", authMiddleware,  async (request, response) => {
     try{
         const clients = await getAll()
         response.json({
@@ -20,7 +21,7 @@ router.get("/", async (request, response) => {
     }
 })
 
-router.post("/create", async (request, response)=>{
+router.post("/", authMiddleware,  async (request, response)=>{
     try{
         const client = await createClient(request.body)
         response.status(201)
@@ -39,7 +40,7 @@ router.post("/create", async (request, response)=>{
     }
 })
 
-router.patch("/update/:id", async (request, response) => {
+router.patch("/:id", authMiddleware , async (request, response) => {
     const {id}= request.params
     try{
         const client = await updateClient(id, request.body)
@@ -58,7 +59,7 @@ router.patch("/update/:id", async (request, response) => {
     }
 })
 
-router.delete("/:id", async(request, response) => {
+router.delete("/:id", authMiddleware,  async(request, response) => {
     const {id} = request.params
     try{
         const client= await deleteClient(id)

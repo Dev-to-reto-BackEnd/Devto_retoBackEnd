@@ -7,18 +7,18 @@ const recipeSchema = new mongoose.Schema({
     SKU : {
         type: String ,
         required: true,
-        maxLength: 10,
+        maxLength: 6
     },
     name : {
         type: String,
         required: true,
         minLength: 3
     },
-    recipeMaterialId: {
-        type: Schema.Types.Array,
-        ref: "recipe-materials"
+    lastUpdate:{
+        type: Date,
+        default: ()=> new Date(),
     },
-    quantity:{
+    unit:{
         type: String,
         required: true,
         maxLength: 10

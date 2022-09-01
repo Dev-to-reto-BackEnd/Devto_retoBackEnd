@@ -26,7 +26,7 @@ router.post("/", async (request, response)=>{
     }
 })
 
-router.patch("/update/:id", async (request, response) => {
+router.patch("/:id", authMiddleware, async (request, response) => {
     const {id}= request.params
     try{
         const quoter = await updateQuoter(id, request.body)
@@ -45,7 +45,7 @@ router.patch("/update/:id", async (request, response) => {
     }
 })
 
-router.delete("/:id", async(request, response) => {
+router.delete("/:id", authMiddleware, async(request, response) => {
     const {id} = request.params
     try{
         const quoter= await deleteQuoter(id)
@@ -62,7 +62,7 @@ router.delete("/:id", async(request, response) => {
     }
 })
 
-router.get("/", async (request, response) => {
+router.get("/", authMiddleware, async (request, response) => {
     try{
         const quoters = await getAll()
         response.json({

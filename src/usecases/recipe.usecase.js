@@ -5,12 +5,16 @@ const getRecipe = () => {
    return Recipe.find({})
 }
 
-const createRecipe = async (data) => {
-    const {recipeMaterialsId}= data
+// const createRecipe = async (data) => {
+//     const {recipeMaterialsId}= data
 
-    const recipeMaterials = await RecipeMaterials.findById(recipeMaterialsId)
-    if(!recipeMaterials) throw new Error ("Recipe Material not found")
+//     const recipeMaterials = await RecipeMaterials.findById(recipeMaterialsId)
+//     if(!recipeMaterials) throw new Error ("Recipe Material not found")
 
+//     return Recipe.create(data)
+// }
+
+const createRecipe = (data) =>{
     return Recipe.create(data)
 }
 

@@ -1,6 +1,11 @@
 const {createQuote, updateQuote, deleteQuote, getAllQuote} = require("../usecases/quote.usecase")
 const express = require("express")
+const authMiddleware = require("../middlewares/auth.middlewares")
+
 const router = express.Router()
+
+//Middleware de auth
+router.use(authMiddleware)
 
 router.get("/", async (request, response) => {
     try{
@@ -29,8 +34,6 @@ router.post("/", async(request, response) =>{
                 quote
             }
         })
-
-
     }catch(err){
         response.status(err.status || 500)
         response.json({
@@ -41,7 +44,8 @@ router.post("/", async(request, response) =>{
 
 })
 
-router.patch("/update/:id", async (request, response)=>{
+router.patch("/:id", async (request, response)=>{
+    const{id} = request.params
     try{
         const quote = await updateQuote(id, request.body)
         response.json({
@@ -66,7 +70,7 @@ router.delete("/:id", async(request, response)=>{
         response.status(200)
         response.json({
             success:true,
-            message: "Se ha eliminado el material"
+            message: "Quote Deleted"
         })
     }catch(err){
         response.status(error.status || 500)

@@ -1,5 +1,4 @@
-const {getMaterial, createMaterial, updateMaterial, deleteMaterial} = require("../usecases/material.usecase")
-
+const {getQuoteRecipe, createQuoteRecipe, updateQuoteRecipe, deleteQuoteRecipe}= require("../usecases/quote-recipe.usecase")
 const express = require("express")
 const authMiddleware = require("../middlewares/auth.middlewares")
 
@@ -10,9 +9,9 @@ router.use(authMiddleware)
 
 router.get("/", async (request, response) => {
     try {
-      const material = await getMaterial()
+      const quoteRecipe = await getQuoteRecipe()
       response.json({
-        material
+        quoteRecipe
       })
     }catch(error) {
       response.status(error.status || 500)
@@ -25,11 +24,11 @@ router.get("/", async (request, response) => {
 
 router.post("/", async (request, response)=>{
     try{
-        const material = await createMaterial(request.body)
+        const quoteRecipe = await createQuoteRecipe(request.body)
         response.json({
             succes:true,
             data:{
-                material
+                quoteRecipe
             }
         })
     }catch(err){
@@ -44,11 +43,11 @@ router.post("/", async (request, response)=>{
 router.patch("/:id", async (request, response)=>{
     const {id} = request.params
     try{
-        const material = await updateMaterial(id, request.body)
+        const quoteRecipe = await updateQuoteRecipe(id, request.body)
         response.json({
             success:true,
             data:{
-                material
+                quoteRecipe
             }
         })
     }catch(err){
@@ -63,11 +62,11 @@ router.patch("/:id", async (request, response)=>{
 router.delete("/:id", async(request, response)=>{
     const {id} = request.params
     try{
-        const material = await deleteMaterial(id)
+        const quoteRecipe = await deleteQuoteRecipe(id)
         response.status(200)
         response.json({
             success:true,
-            message: "Se ha eliminado el material"
+            message: "Quote-Recipe Deleted"
         })
     }catch(err){
         response.status(error.status || 500)

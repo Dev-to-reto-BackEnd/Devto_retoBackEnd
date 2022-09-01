@@ -7,6 +7,7 @@ const routerRecipe= require("./route/recipe.route")
 const routerRecipeMaterial= require("./route/recipe-materials.route")
 const routerQuote= require("./route/quote.route")
 const routerLogin= require("./route/auth.route")
+const routerQuoteRecipe= require("./route/quote-recipe.route")
 
 const app = express()
 
@@ -30,11 +31,12 @@ app.get("/", (request, response) =>{
 
 //Use
 app.use("/client", routerClients)
-app.use("/materials", routerMaterials)
+app.use("/material", routerMaterials)
 app.use("/quoter", routerQuoter)
 app.use("/recipe", routerRecipe)
-app.use("/recipe-materials", routerRecipeMaterial)
+app.use("/recipe-material", routerRecipeMaterial)
 app.use("/quote", routerQuote)
+app.use("/quote-recipe", routerQuoteRecipe)
 app.use("/login", routerLogin)
 
 module.exports = app

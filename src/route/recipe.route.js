@@ -1,6 +1,11 @@
 const {getRecipe, createRecipe, updateRecipe, deleteRecipe} = require("../usecases/recipe.usecase")
 const express = require("express")
+const authMiddleware = require("../middlewares/auth.middlewares")
+
 const router = express.Router()
+
+//Middleware de auth
+router.use(authMiddleware)
 
 router.get("/", async (request, response) => {
     try {
@@ -17,7 +22,7 @@ router.get("/", async (request, response) => {
     }
   })
 
-router.post("/create", async(request, response) =>{
+router.post("/", async(request, response) =>{
     try{
         const recipe = await createRecipe(request.body)
         response.json({
@@ -38,7 +43,8 @@ router.post("/create", async(request, response) =>{
 
 })
 
-router.patch("/update/:id", async (request, response)=>{
+router.patch("/:id", async (request, response)=>{
+    const {id}= request.params
     try{
         const recipe = await updateRecipe(id, request.body)
         response.json({

@@ -11,10 +11,6 @@ const quoteSchemma = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref:"quoters"
     },
-    quoterId: {
-        type: Schema.Types.ObjectId,
-        ref:"recipe"
-    }, 
     expirationDate: {
         type: Date,
         default: () => addBusinessDays(new Date(), 15)
@@ -36,8 +32,7 @@ const quoteSchemma = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: ()=> new Date(),
-        minLength: 3
+        default: ()=> new Date()
     },
     note: {
         type: String,

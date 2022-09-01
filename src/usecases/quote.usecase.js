@@ -1,7 +1,6 @@
 const Quote = require("../models/quote.model")
 const Client = require("../models/client.model")
 const Quoter = require("../models/quoter.model")
-const Recipe = require("../models/recipe.model")
 
 
 const createQuote = async (data) => {
@@ -12,9 +11,6 @@ const createQuote = async (data) => {
 
     const quoter = await Quoter.findById(quoterId)
     if(!quoter) throw new Error ("Quoter not found")
-
-    const recipe = await Recipe.findById(recipeId)
-    if(!recipe) throw new Error ("Recipe not found")
     
     return Quote.create(data)
 }

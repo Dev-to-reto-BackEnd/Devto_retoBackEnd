@@ -8,17 +8,15 @@ const recipeMaterialsSchemma = new Schema({
         minLength: 3,
         ref: "recipes"
     },
-    //ligado a materials
-    // Replantear materialID, que sea un arry de objetos (materiales)
     materialId: {
-        type: Schema.Types.Array,
+        type: Schema.Types.ObjectId,
         ref: "materials"
     },
     quantity: {
         type: Number,
         required: true,
         minLength: 1
-    }, //preguntar que hacer para que la fecha no vaya variando
+    }, 
     createdAt: {
         type: Date,
         default: ()=> new Date(),
