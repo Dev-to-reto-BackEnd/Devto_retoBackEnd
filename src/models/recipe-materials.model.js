@@ -19,7 +19,7 @@ const recipeMaterialsSchemma = new Schema({
     }, 
     createdAt: {
         type: Date,
-        default: ()=> new Date(),
+        default: ()=> new Date()
     },
     //esta fecha va variando con cada actualizacion
     lastUpdate:{
