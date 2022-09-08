@@ -8,10 +8,17 @@ const recipeMaterialsSchemma = new Schema({
         minLength: 3,
         ref: "recipes"
     },
-    materialId: {
-        type: Schema.Types.ObjectId,
-        ref: "materials"
-    },
+    // Cambio 
+    materials:[{
+        materialId: {
+            type: Schema.Types.ObjectId,
+            ref: "materials"
+        },
+        quantity:{
+            type:Number,
+            required:true
+        }
+    }],
     quantity: {
         type: Number,
         required: true,

@@ -37,10 +37,6 @@ const quoteSchemma = new mongoose.Schema({
     note: {
         type: String,
         required: false,
-    },
-    photos: {
-        type: String,
-        required: true,
     }
 })
 
