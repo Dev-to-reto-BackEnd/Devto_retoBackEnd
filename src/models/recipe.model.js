@@ -25,7 +25,7 @@ const recipeSchema = new mongoose.Schema({
     },
     createdAt:{
         type: Date,
-        default: ()=> new Date(),
+        default: ()=> new Date()
     },
     tags:{
         type: Array,
@@ -35,7 +35,6 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         required: true, //operative, work, equipment, outsoucing, people, etc
     }
-
 })
 
 const Recipe = mongoose.model ("recipes", recipeSchema)

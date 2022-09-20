@@ -70,10 +70,10 @@ router.delete("/:id", async(request, response)=>{
             message: "Se ha eliminado el material"
         })
     }catch(err){
-        response.status(error.status || 500)
+        response.status(err.status || 500)
         response.json({
             success : false,
-            message: error.message
+            message: err.message
         })
     }
 })

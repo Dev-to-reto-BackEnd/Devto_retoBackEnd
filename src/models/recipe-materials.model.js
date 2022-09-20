@@ -8,17 +8,10 @@ const recipeMaterialsSchemma = new Schema({
         minLength: 3,
         ref: "recipes"
     },
-    // Cambio 
-    materials:[{
-        materialId: {
-            type: Schema.Types.ObjectId,
-            ref: "materials"
-        },
-        quantity:{
-            type:Number,
-            required:true
-        }
-    }],
+    materialId: {
+        type: Schema.Types.ObjectId,
+        ref: "materials"
+    },
     quantity: {
         type: Number,
         required: true,
@@ -26,11 +19,6 @@ const recipeMaterialsSchemma = new Schema({
     }, 
     createdAt: {
         type: Date,
-        default: ()=> new Date()
-    },
-    //esta fecha va variando con cada actualizacion
-    lastUpdate:{
-        type:Date,
         default: ()=> new Date()
     }
 })

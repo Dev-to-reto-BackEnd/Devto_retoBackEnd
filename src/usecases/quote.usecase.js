@@ -1,18 +1,17 @@
 const Quote = require("../models/quote.model")
-const Client = require("../models/client.model")
-const Quoter = require("../models/quoter.model")
-
+const {createQuoteRecipe}= require("./quote-recipe.usecase")
 
 const createQuote = async (data) => {
-    const {clientId, quoterId, recipeId }= data
+    const {recipes}= data
+    const quoteCreated= await Quote.create(data)
 
-    const client = await Client.findById(clientId)
-    if(!client) throw new Error ("Client not found")
-
-    const quoter = await Quoter.findById(quoterId)
-    if(!quoter) throw new Error ("Quoter not found")
-    
-    return Quote.create(data)
+    for(const recipe of recipes){
+        await createQuoteRecipe({
+            quoteId: quoteCreated._id,
+            recipeId: recipe.id,
+        })
+    }
+    return quoteCreated
 }
 
 const getAllQuote =  () => {
@@ -26,6 +25,5 @@ const updateQuote = (id, data)=>{
 const deleteQuote = (id) => {
     return Quote.findByIdAndDelete(id)
 }
-
 
 module.exports = {createQuote, updateQuote, deleteQuote, getAllQuote}

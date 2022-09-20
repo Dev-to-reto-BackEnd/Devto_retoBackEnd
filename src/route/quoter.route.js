@@ -32,9 +32,7 @@ router.patch("/:id", authMiddleware, async (request, response) => {
         const quoter = await updateQuoter(id, request.body)
         response.json({
             success: true,
-            data:{
-                quoter
-            }
+            message : "Cotizador actualizado con exito"
         })
     }catch(err){
         response.status(err.status || 400)
@@ -49,15 +47,16 @@ router.delete("/:id", authMiddleware, async(request, response) => {
     const {id} = request.params
     try{
         const quoter= await deleteQuoter(id)
+        response.status(200)
         response.json=({
             success: true,
             message : "Cotizador eliminado con exito"
         })
     }catch (err){
-        response.status=(err.status || 500)
+        response.status(error.status || 500)
         response.json({
             success:false,
-            message: err.message
+            message: error.message
         })
     }
 })
@@ -79,25 +78,5 @@ router.get("/", authMiddleware, async (request, response) => {
         })
     }
 })
-
-// router.get("/detail",  async (request, response) => {
-//     console.log("request en la ruta", request.userId)
-//     console.log("EStamos en detalle")
-//     try{
-//         const quoter = await getById(request.userId)
-//         response.json({
-//             success:true,
-//             data: {
-//                 quoter
-//             }
-//         })
-//     } catch (err) {
-//         response.status(err.status || 500)
-//         response.json({
-//             success:false,
-//             message: err.message
-//         })
-//     }
-// })
 
 module.exports = router

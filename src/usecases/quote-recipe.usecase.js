@@ -1,10 +1,22 @@
 const QuoteRecipe = require("../models/quote-recipes.model")
+const Quote = require("../models/quote.model")
+const Recipe = require("../models/recipe.model")
 
 const getQuoteRecipe = () => {
     return QuoteRecipe.find({})
 }
 
-const createQuoteRecipe = (data) =>{
+const createQuoteRecipe =async (data) =>{
+    const {quoteId, recipeId}= data
+    // console.log("quoteId", quoteId)
+    // console.log("recipeId", recipeId)
+
+    const quote = await Quote.findById(quoteId)
+    if(!quote) throw new Error ("Cotización no encontrada")
+
+    const recipe = await Recipe.findById(recipeId)
+    if(!recipe) throw new Error ("Receta no encontrada")
+    
     return QuoteRecipe.create(data)
 }
 

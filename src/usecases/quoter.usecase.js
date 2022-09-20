@@ -28,12 +28,12 @@ const login = async (email, textPlainPassword) => {
     const quoter = await Quoter.findOne({email})
 
     //Falla correo
-    if(!quoter) throw createError (400, "Invalid Data")
+    if(!quoter) throw createError (400, "Información invalida")
 
     const isValidPassword= await bcrypt.compare(textPlainPassword, quoter.password)
 
     //Falla password 
-    if (!isValidPassword) throw createError(400,"Invalid Data")
+    if (!isValidPassword) throw createError(400,"Información invalida")
 
     //Haciendo token
     let token=jwt.sign({id: quoter._id, isActive:quoter.isActive})

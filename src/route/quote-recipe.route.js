@@ -66,7 +66,7 @@ router.delete("/:id", async(request, response)=>{
         response.status(200)
         response.json({
             success:true,
-            message: "Quote-Recipe Deleted"
+            message: "Receta de cotización eliminada"
         })
     }catch(err){
         response.status(error.status || 500)

@@ -9,11 +9,11 @@ const{DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}= process.env
 
 mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`)
 .then(() => {
-    console.log("Connected to DB")
+    console.log("Conectado a la base de datos")
     server.listen(8080, (request, response) => {
-        console.log("Our Server in on")
+        console.log("Nuestro servidor está encendido")
     })
 })
 .catch((err) =>{
-    console.log("There was an error", (err))
+    console.log("Hubo un error", (err))
 })

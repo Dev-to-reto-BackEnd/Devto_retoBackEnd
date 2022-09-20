@@ -1,28 +1,28 @@
 const Recipe = require("../models/recipe.model")
-const RecipeMaterials = require ("../models/recipe-materials.model")
+const {createRecipeMaterials} = require ("../usecases/recipe-materials.usecase")
 
 const getRecipe = () => {
-   return Recipe.find({})
+    return Recipe.find({})
 }
 
-// const createRecipe = async (data) => {
-//     const {recipeMaterialsId}= data
-
-//     const recipeMaterials = await RecipeMaterials.findById(recipeMaterialsId)
-//     if(!recipeMaterials) throw new Error ("Recipe Material not found")
-
-//     return Recipe.create(data)
-// }
-
-const createRecipe = (data) =>{
-    return Recipe.create(data)
+const createRecipe = async (data) =>{
+    const{materials}=data
+    const recipeCreated = await Recipe.create(data)
+    
+    for(const material of materials){
+        await createRecipeMaterials({
+            recipeId:recipeCreated._id,
+            materialId: material.id,
+        })
+    }
+    return recipeCreated
 }
 
 const updateRecipe = (id, data)=>{
     return Recipe.findByIdAndUpdate(id, data, {returnDocument:"after"})
 }
 
-const deleteRecipe =  (id) => {
+const deleteRecipe = (id) => {
     return Recipe.findByIdAndDelete(id)
 }
 

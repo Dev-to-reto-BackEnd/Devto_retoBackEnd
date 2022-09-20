@@ -7,7 +7,7 @@ const materialSchemma = new mongoose.Schema({
         minLength:3,
     },
     unit:{
-        type: String,
+        type: Number,
         required: true,
         maxLength: 10,
     },

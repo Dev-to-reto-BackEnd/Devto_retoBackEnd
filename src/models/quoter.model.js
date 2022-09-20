@@ -17,6 +17,11 @@ const quoterSchemma = new mongoose.Schema({
         required:true,
         unique:true
     },
+    phone:{
+        type: string,
+        required: true,
+        minLength:10
+    },
     password:{
         type: String,
         required: true, 
@@ -24,6 +29,7 @@ const quoterSchemma = new mongoose.Schema({
     },
     isActive :{
         type: Boolean,
+        default: true
     },
     businessName:{
         type: String,
@@ -61,15 +67,13 @@ const quoterSchemma = new mongoose.Schema({
         required: true
     },
     createdAt:{
-        type: String,
-        required: true,
-        minLength: 3
+        type: Date,
+        default: ()=> new Date()
     },
     logo:{
         type:String
     }
 })
-
 
 const Quoter = mongoose.model("quoters", quoterSchemma)
 

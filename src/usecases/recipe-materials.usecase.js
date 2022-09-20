@@ -8,14 +8,14 @@ const getRecipeMaterials = () => {
 
 const createRecipeMaterials = async (data) => {
     const {materialId, recipeId}= data
-    console.log("materialId", materialId)
-    console.log("recipeId", recipeId)
+    // console.log("materialId", materialId)
+    // console.log("recipeId", recipeId)
 
     const material = await Material.findById(materialId)
-    if(!material) throw new Error ("Material not found")
+    if(!material) throw new Error ("Material no encontrado")
 
     const recipe = await Recipe.findById(recipeId)
-    if(!recipe) throw new Error ("Recipe not found")
+    if(!recipe) throw new Error ("Receta no encontrada")
     
     return RecipeMaterials.create(data)
 }

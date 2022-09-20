@@ -22,7 +22,8 @@ const clientSchemma = new mongoose.Schema({
         minLength: 10
     },
     isActive :{
-        type: Boolean,
+        default:true,
+        type: Boolean
     },
     businessName:{
         type: String,
@@ -60,7 +61,8 @@ const clientSchemma = new mongoose.Schema({
         required: true
     },
     createdAt:{
-        type:String
+        type: Date,
+        default: ()=> new Date()
     }
 })
 
