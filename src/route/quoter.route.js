@@ -1,4 +1,4 @@
-const {deleteQuoter, updateQuoter, createQuoter, getAll, getById} = require("../usecases/quoter.usecase")
+const {deleteQuoter, updateQuoter, createQuoter, getAll, getById, login} = require("../usecases/quoter.usecase")
 const express = require("express")
 const authMiddleware = require("../middlewares/auth.middlewares")
 
@@ -8,13 +8,16 @@ const router = express.Router()
 // router.use(authMiddleware)
 
 router.post("/", async (request, response)=>{
+    const {email, password} = request.body
     try{
         const quoter = await createQuoter(request.body)
+        const token= await login(email, password)
         response.status(201)
         response.json({
             success:true,
             data:{
-                quoter
+                quoter,
+                token
             }
         })
     } catch(err){

@@ -4,11 +4,13 @@ const {Schema} = mongoose
 const quoteRecipesSchema = new Schema({
     quoteId: {
         type: Schema.Types.ObjectId,
-        ref: "quote"
+        ref: "quote",
+        required: true
     },
     recipeId: {
         type: Schema.Types.ObjectId,
-        ref: "recipes"
+        ref: "recipes",
+        required:true
     },
     quantity: {
         type: Number,

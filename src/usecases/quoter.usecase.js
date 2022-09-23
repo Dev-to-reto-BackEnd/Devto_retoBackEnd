@@ -10,7 +10,9 @@ const getAll= () => {
 
 const createQuoter= async (data) => {
     //Sign up, crear cuenta
+    console.log("data", data)
     const hash= await bcrypt.hash(data.password, saltRounds)
+    console.log("hash", hash)
     data.password= hash
     return await Quoter.create(data)
 }

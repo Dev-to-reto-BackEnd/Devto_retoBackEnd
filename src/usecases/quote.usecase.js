@@ -1,7 +1,8 @@
 const Quote = require("../models/quote.model")
 const {createQuoteRecipe}= require("./quote-recipe.usecase")
 
-const createQuote = async (data) => {
+const createQuote = async (quoterId, data) => {
+    data.quoterId=quoterId
     const {recipes}= data
     const quoteCreated= await Quote.create(data)
 
@@ -9,14 +10,15 @@ const createQuote = async (data) => {
         await createQuoteRecipe({
             quoteId: quoteCreated._id,
             recipeId: recipe.id,
+            quantity: recipe.quantity
         })
     }
     return quoteCreated
 }
 
-const getAllQuote =  () => {
-    return Quote.find({}).populate("clientId quoterId")
-} 
+const getByQuoterId = (quoterId) => {
+    return Quote.find({quoterId})
+}
 
 const updateQuote = (id, data)=>{
     return Quote.findByIdAndUpdate(id, data, {returnDocument:"after"})
@@ -26,4 +28,4 @@ const deleteQuote = (id) => {
     return Quote.findByIdAndDelete(id)
 }
 
-module.exports = {createQuote, updateQuote, deleteQuote, getAllQuote}
+module.exports = {getByQuoterId, createQuote, updateQuote, deleteQuote}

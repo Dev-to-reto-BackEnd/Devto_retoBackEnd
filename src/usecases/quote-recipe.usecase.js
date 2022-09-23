@@ -8,8 +8,6 @@ const getQuoteRecipe = () => {
 
 const createQuoteRecipe =async (data) =>{
     const {quoteId, recipeId}= data
-    // console.log("quoteId", quoteId)
-    // console.log("recipeId", recipeId)
 
     const quote = await Quote.findById(quoteId)
     if(!quote) throw new Error ("Cotización no encontrada")

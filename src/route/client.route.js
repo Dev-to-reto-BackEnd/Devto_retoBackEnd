@@ -1,11 +1,11 @@
-const {deleteClient, updateClient, createClient, getAll} = require("../usecases/client.usecase")
+const {getByQuoterId, deleteClient, updateClient, createClient} = require("../usecases/client.usecase")
 const express = require("express")
 const router = express.Router()
 const authMiddleware = require("../middlewares/auth.middlewares")
 
 router.get("/", authMiddleware,  async (request, response) => {
     try{
-        const clients = await getAll()
+        const clients = await getByQuoterId(request.quoter.id)
         response.json({
             success:true,
             data: {
@@ -23,7 +23,7 @@ router.get("/", authMiddleware,  async (request, response) => {
 
 router.post("/", authMiddleware,  async (request, response)=>{
     try{
-        const client = await createClient(request.body)
+        const client = await createClient(request.quoter.id, request.body)
         response.status(201)
         response.json({
             success:true,

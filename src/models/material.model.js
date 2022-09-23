@@ -1,13 +1,19 @@
 const mongoose = require ("mongoose")
+const {Schema}=mongoose
 
 const materialSchemma = new mongoose.Schema({
+    quoterId: {
+        type: Schema.Types.ObjectId,
+        ref:"quoters",
+        required:true
+    },
     name:{
         type: String,
         required: true,
         minLength:3,
     },
     unit:{
-        type: Number,
+        type: String,
         required: true,
         maxLength: 10,
     },

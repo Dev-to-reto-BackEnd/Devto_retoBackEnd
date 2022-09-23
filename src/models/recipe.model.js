@@ -1,9 +1,12 @@
 const mongoose = require ("mongoose")
 const {Schema} = mongoose
 
-//Falta agregar las recetas de los materiales en la receta final
 const recipeSchema = new mongoose.Schema({
-    //nosotros lo generamos
+    quoterId: {
+        type: Schema.Types.ObjectId,
+        ref:"quoters",
+        required:true
+    },
     SKU : {
         type: String ,
         required: true,

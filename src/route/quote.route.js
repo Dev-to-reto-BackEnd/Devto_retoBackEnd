@@ -1,4 +1,4 @@
-const {createQuote, updateQuote, deleteQuote, getAllQuote} = require("../usecases/quote.usecase")
+const {getByQuoterId, createQuote, updateQuote, deleteQuote} = require("../usecases/quote.usecase")
 const express = require("express")
 const authMiddleware = require("../middlewares/auth.middlewares")
 
@@ -9,7 +9,7 @@ router.use(authMiddleware)
 
 router.get("/", async (request, response) => {
     try{
-        const quotes= await getAllQuote()
+        const quotes= await getByQuoterId(request.quoter.id)
         response.json({
             success:true,
             data:{
@@ -27,7 +27,7 @@ router.get("/", async (request, response) => {
 
 router.post("/", async(request, response) =>{
     try{
-        const quote = await createQuote(request.body)
+        const quote = await createQuote(request.quoter.id, request.body)
         response.json({
             success:true,
             data:{

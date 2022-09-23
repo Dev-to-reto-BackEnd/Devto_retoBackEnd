@@ -18,7 +18,7 @@ const quoterSchemma = new mongoose.Schema({
         unique:true
     },
     phone:{
-        type: string,
+        type: Number,
         required: true,
         minLength:10
     },

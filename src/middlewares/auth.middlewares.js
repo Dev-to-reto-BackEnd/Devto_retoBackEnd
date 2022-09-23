@@ -7,10 +7,12 @@ const auth = (request, response, next) => {
         const token=authorization.replace("Bearer ", "")
 
         const verifiedToken= jwt.verify(token)
-        console.log("verifiedToken", verifiedToken)
+        console.log("verifiedToken", verifiedToken.id)
 
-        // request["userId"]=verifiedToken.userId
-        // consol.log("request userId", request.userId)
+        request.quoter={}
+        request.quoter.id=verifiedToken.id
+
+        
 
         next()
     }catch(err){

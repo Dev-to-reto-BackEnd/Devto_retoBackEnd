@@ -2,15 +2,16 @@ const mongoose = require("mongoose")
 const {Schema} = mongoose
 
 const recipeMaterialsSchemma = new Schema({
-    //recipiId esta ligado a recipe
     recipeId: {
         type: Schema.Types.ObjectId,
         minLength: 3,
-        ref: "recipes"
+        ref: "recipes", 
+        required:true
     },
     materialId: {
         type: Schema.Types.ObjectId,
-        ref: "materials"
+        ref: "materials",
+        required:true
     },
     quantity: {
         type: Number,

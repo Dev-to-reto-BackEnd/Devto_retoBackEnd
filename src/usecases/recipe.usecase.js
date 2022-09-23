@@ -1,18 +1,20 @@
 const Recipe = require("../models/recipe.model")
 const {createRecipeMaterials} = require ("../usecases/recipe-materials.usecase")
 
-const getRecipe = () => {
-    return Recipe.find({})
+const getByQuoterId= (quoterId)=>{
+    return Recipe.find({quoterId})
 }
 
-const createRecipe = async (data) =>{
-    const{materials}=data
+const createRecipe = async (quoterId, data) =>{
+    data.quoterId=quoterId
+    const{materials}=datab 
     const recipeCreated = await Recipe.create(data)
     
     for(const material of materials){
         await createRecipeMaterials({
             recipeId:recipeCreated._id,
             materialId: material.id,
+            quantity:material.quantity
         })
     }
     return recipeCreated
@@ -26,4 +28,4 @@ const deleteRecipe = (id) => {
     return Recipe.findByIdAndDelete(id)
 }
 
-module.exports = {getRecipe, createRecipe, updateRecipe, deleteRecipe}
+module.exports = {createRecipe, updateRecipe, deleteRecipe, getByQuoterId}

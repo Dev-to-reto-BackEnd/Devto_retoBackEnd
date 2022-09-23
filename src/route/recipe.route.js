@@ -1,4 +1,4 @@
-const {getRecipe, createRecipe, updateRecipe, deleteRecipe} = require("../usecases/recipe.usecase")
+const {createRecipe, updateRecipe, deleteRecipe, getByQuoterId} = require("../usecases/recipe.usecase")
 const express = require("express")
 const authMiddleware = require("../middlewares/auth.middlewares")
 
@@ -9,7 +9,7 @@ router.use(authMiddleware)
 
 router.get("/", async (request, response) => {
     try {
-      const recipe = await getRecipe()
+      const recipe = await getByQuoterId(request.quoter.id)
       response.json({
         recipe
       })
@@ -24,7 +24,7 @@ router.get("/", async (request, response) => {
 
 router.post("/", async(request, response) =>{
     try{
-        const recipe = await createRecipe(request.body)
+        const recipe = await createRecipe(request.quoter.id, request.body)
         response.json({
             success:true,
             data:{

@@ -1,6 +1,11 @@
 const mongoose = require("mongoose")
-
+const {Schema}=mongoose
 const clientSchemma = new mongoose.Schema({
+    quoterId: {
+        type: Schema.Types.ObjectId,
+        ref:"quoters", 
+        required:true
+    },
     firstName: {
         type: String,
         required: true,

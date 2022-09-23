@@ -1,10 +1,15 @@
 const Material = require("../models/material.model")
 
-const getMaterial = () => {
-    return Material.find({})
+const getByQuoterId=(quoterId) => {
+    return Material.find({quoterId})
 }
 
-const createMaterial = (data) =>{
+const getMaterial = (id) => {
+    return Material.findById(id)
+}
+
+const createMaterial = (quoterId, data) =>{
+    data.quoterId=quoterId
     return Material.create(data)
 }
 
@@ -13,9 +18,8 @@ const updateMaterial = (id, data) =>{
 }
 
 const deleteMaterial =  (id)=>{
-    return Material.findByIdAndUpdate(id)
-    
+    return Material.findByIdAndDelete(id)
 }
 
-module.exports = {getMaterial, createMaterial, updateMaterial, deleteMaterial}
+module.exports = {getMaterial, createMaterial, updateMaterial, deleteMaterial, getByQuoterId}
 

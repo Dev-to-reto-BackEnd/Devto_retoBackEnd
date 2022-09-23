@@ -1,4 +1,4 @@
-const {getMaterial, createMaterial, updateMaterial, deleteMaterial} = require("../usecases/material.usecase")
+const {getMaterial, createMaterial, updateMaterial, deleteMaterial, getByQuoterId} = require("../usecases/material.usecase")
 
 const express = require("express")
 const authMiddleware = require("../middlewares/auth.middlewares")
@@ -10,7 +10,9 @@ router.use(authMiddleware)
 
 router.get("/", async (request, response) => {
     try {
-      const material = await getMaterial()
+        // 
+    console.log("quoter", request.quoter.id)
+      const material = await getByQuoterId(request.quoter.id)
       response.json({
         material
       })
@@ -23,9 +25,29 @@ router.get("/", async (request, response) => {
     }
   })
 
+  router.get("/:id", async (request, response)=>{
+    const {id} = request.params
+    try{
+        const material = await getMaterial(id)
+        response.json({
+            success:true,
+            data:{
+                material
+            }
+        })
+    }catch(err){
+        response.status(err.status || 400)
+        response.json({
+            success : false,
+            message: err.message
+        })
+    }
+})
+
 router.post("/", async (request, response)=>{
     try{
-        const material = await createMaterial(request.body)
+        // 
+        const material = await createMaterial(request.quoter.id, request.body)
         response.json({
             succes:true,
             data:{

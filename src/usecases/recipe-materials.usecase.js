@@ -8,8 +8,6 @@ const getRecipeMaterials = () => {
 
 const createRecipeMaterials = async (data) => {
     const {materialId, recipeId}= data
-    // console.log("materialId", materialId)
-    // console.log("recipeId", recipeId)
 
     const material = await Material.findById(materialId)
     if(!material) throw new Error ("Material no encontrado")

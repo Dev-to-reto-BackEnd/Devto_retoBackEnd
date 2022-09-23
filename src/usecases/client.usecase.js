@@ -1,10 +1,11 @@
 const Client = require("../models/client.model")
 
-const getAll= () => {
-    return Client.find({})
+const getByQuoterId = (quoterId)=> {
+    return Client.find({quoterId})
 }
 
-const createClient= (data) => {
+const createClient= (quoterId, data) => {
+    data.quoterId=quoterId
     return  Client.create(data)
 }
 
@@ -16,4 +17,4 @@ const deleteClient = (id) => {
     return Client.findByIdAndDelete(id)
 }
 
-module.exports = {deleteClient, updateClient, createClient, getAll}
+module.exports = {getByQuoterId, deleteClient, updateClient, createClient}

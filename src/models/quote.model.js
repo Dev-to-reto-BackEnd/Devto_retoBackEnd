@@ -5,11 +5,13 @@ const addBusinessDays = require('date-fns/addBusinessDays')
 const quoteSchemma = new mongoose.Schema({
     clientId: {
         type: Schema.Types.ObjectId,
-        ref:"clients"
+        ref:"clients", 
+        required:true
     },
     quoterId: {
         type: Schema.Types.ObjectId,
-        ref:"quoters"
+        ref:"quoters", 
+        required:true
     },
     expirationDate: {
         type: Date,
