@@ -30,7 +30,7 @@ const deleteQuote = (id) => {
   return Quote.findByIdAndDelete(id);
 };
 
-const toPDF = async (quoteId = 123) => {
+const toPDF = async (quoteId) => {
   const quote = await Quote.findById(quoteId);
   if (!quote) throw new Error("Cotización no encontrada");
 
