@@ -31,8 +31,8 @@ const deleteQuote = (id) => {
 };
 
 const toPDF = async (quoteId = 123) => {
-  //   const quote = await Quote.findById(quoteId);
-  //   if (!quote) throw new Error("Cotización no encontrada");
+  const quote = await Quote.findById(quoteId);
+  if (!quote) throw new Error("Cotización no encontrada");
 
   const filePath = `pdfs/${quoteId}.pdf`;
   const browser = await chromium.launch();
