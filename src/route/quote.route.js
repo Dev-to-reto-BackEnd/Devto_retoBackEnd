@@ -38,8 +38,8 @@ router.get("/:id/pdf", async (request, response) => {
 
     const pdfPath = await toPDF(id);
 
-    var file = fs.createReadStream(pdfPath);
-    var stat = fs.statSync(pdfPath);
+    const file = fs.createReadStream(pdfPath);
+    const stat = fs.statSync(pdfPath);
     response.setHeader("Content-Length", stat.size);
     response.setHeader("Content-Type", "application/pdf");
     response.setHeader("Content-Disposition", "attachment; filename=quote.pdf");
