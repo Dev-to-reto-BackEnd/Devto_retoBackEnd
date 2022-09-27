@@ -3,6 +3,22 @@ const fs = require("fs");
 const Quote = require("../models/quote.model");
 const { createQuoteRecipe } = require("./quote-recipe.usecase");
 
+const getByQuoterId = async (quoterId) => {
+  const quoterQuotes = await Quote.find({ quoterId }).lean();
+
+  const quotePerQuotes = await Promise.all(
+    quoterQuotes.map((quote) => {
+      return QuoteRecipes.find({ quoteId: quote._id }).populate("recipeId");
+    })
+  );
+  return quoterQuotes.map((quote, index) => {
+    return {
+      ...quote,
+      quotes: quotePerQuotes[index],
+    };
+  });
+};
+
 const createQuote = async (quoterId, data) => {
   data.quoterId = quoterId;
   const { recipes } = data;
@@ -16,10 +32,6 @@ const createQuote = async (quoterId, data) => {
     });
   }
   return quoteCreated;
-};
-
-const getByQuoterId = (quoterId) => {
-  return Quote.find({ quoterId });
 };
 
 const updateQuote = (id, data) => {
