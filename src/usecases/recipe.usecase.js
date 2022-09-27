@@ -21,7 +21,7 @@ const getByQuoterId = async (quoterId) => {
   );
 
   // sacamos el total de cada receta
-  const totalsPerRecipe = materialsPerRecipe.map((recipeMaterials) => {
+  const costPerRecipe = materialsPerRecipe.map((recipeMaterials) => {
     return recipeMaterials.reduce((acumulado, recipeMaterial) => {
       return (
         recipeMaterial.quantity * recipeMaterial.materialId.price + acumulado
@@ -34,7 +34,7 @@ const getByQuoterId = async (quoterId) => {
     return {
       ...recipe,
       materials: materialsPerRecipe[index],
-      total: totalsPerRecipe[index],
+      cost: costPerRecipe[index],
     };
   });
 
