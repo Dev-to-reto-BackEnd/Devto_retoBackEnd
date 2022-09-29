@@ -3,6 +3,7 @@ const { chromium } = require("playwright");
 const fs = require("fs");
 const Quote = require("../models/quote.model");
 const { createQuoteRecipe } = require("./quote-recipe.usecase");
+const QuoteRecipes = require("../models/quote-recipes.model");
 
 const getByQuoterId = async (quoterId) => {
   const quoterQuotes = await Quote.find({ quoterId }).lean();
