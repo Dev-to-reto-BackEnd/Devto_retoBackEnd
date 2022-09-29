@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/OpSurvey/BackEnd#readme",
   "dependencies": {
-    "@react-pdf/renderer": "^3.0.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "date-fns": "^2.29.2",
