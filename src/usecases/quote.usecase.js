@@ -78,8 +78,6 @@ const getById = async (quoteId) => {
     })
   )
 
-  console.log(quoteRecipesMaterials)
-
   const completeQuoteRecipes = quoteRecipes.map((quoteRecipe, index) => {
     return {
       ...quoteRecipe,
