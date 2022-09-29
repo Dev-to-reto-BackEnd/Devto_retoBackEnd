@@ -3,6 +3,7 @@ const { chromium } = require("playwright");
 const fs = require("fs");
 const Quote = require("../models/quote.model");
 const { createQuoteRecipe } = require("./quote-recipe.usecase");
+const RecipeMaterials = require("../models/recipe-materials.model");
 
 const getByQuoterId = async (quoterId) => {
   const quoterQuotes = await Quote.find({ quoterId }).lean();
@@ -66,6 +67,34 @@ const toPDF = async (quoteId) => {
   return filePath;
 };
 
+const getById = async (quoteId) => {
+  const quote = await Quote.findById(quoteId).populate("clientId quoterId").lean()
+
+  const quoteRecipes = await QuoteRecipes.find({ quoteId }).populate("recipeId").lean()
+
+  const quoteRecipesMaterials = await Promise.all(
+    quoteRecipes.map((quoteRecipe) => {
+      return RecipeMaterials.find({ recipeId: quoteRecipe.recipeId }).populate("materialId").lean()
+    })
+  )
+
+  console.log(quoteRecipesMaterials)
+
+  const completeQuoteRecipes = quoteRecipes.map((quoteRecipe, index) => {
+    return {
+      ...quoteRecipe,
+      materials: quoteRecipesMaterials[index]
+    }
+  })
+
+  const quoteComplete = {
+    ...quote,
+    recipe: completeQuoteRecipes,
+  }
+
+  return quoteComplete
+}
+
 module.exports = {
   getByQuoterId,
   createQuote,
@@ -73,4 +102,5 @@ module.exports = {
   deleteQuote,
   paidOutQuote,
   toPDF,
+  getById
 };
