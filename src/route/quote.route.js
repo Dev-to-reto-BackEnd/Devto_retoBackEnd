@@ -4,16 +4,15 @@ const {
   updateQuote,
   deleteQuote,
   paidOutQuote,
+  toPDF,
 } = require("../usecases/quote.usecase");
+const fs = require("fs");
 const express = require("express");
 const authMiddleware = require("../middlewares/auth.middlewares");
 
 const router = express.Router();
 
-//Middleware de auth
-router.use(authMiddleware);
-
-router.get("/", async (request, response) => {
+router.get("/", authMiddleware, async (request, response) => {
   try {
     const quotes = await getByQuoterId(request.quoter.id);
     response.json({
@@ -31,7 +30,7 @@ router.get("/", async (request, response) => {
   }
 });
 
-router.post("/", async (request, response) => {
+router.post("/", authMiddleware, async (request, response) => {
   try {
     const quote = await createQuote(request.quoter.id, request.body);
     response.json({
@@ -49,7 +48,7 @@ router.post("/", async (request, response) => {
   }
 });
 
-router.patch("/:id", async (request, response) => {
+router.patch("/:id", authMiddleware, async (request, response) => {
   const { id } = request.params;
   try {
     const quote = await updateQuote(id, request.body);
@@ -68,7 +67,7 @@ router.patch("/:id", async (request, response) => {
   }
 });
 
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", authMiddleware, async (request, response) => {
   const { id } = request.params;
   try {
     const quote = await deleteQuote(id);
@@ -86,7 +85,28 @@ router.delete("/:id", async (request, response) => {
   }
 });
 
-router.put("/:id", async (request, response) => {
+router.get("/:id/pdf", async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    const pdfPath = await toPDF(id);
+
+    const file = fs.createReadStream(pdfPath);
+    const stat = fs.statSync(pdfPath);
+    response.setHeader("Content-Length", stat.size);
+    response.setHeader("Content-Type", "application/pdf");
+    response.setHeader("Content-Disposition", "attachment; filename=quote.pdf");
+    file.pipe(response);
+  } catch (err) {
+    response.status(err.status || 500);
+    response.json({
+      succes: false,
+      message: err.message,
+    });
+  }
+});
+
+router.put("/:id", authMiddleware, async (request, response) => {
   const { id } = request.params;
   try {
     const quote = await paidOutQuote(id);

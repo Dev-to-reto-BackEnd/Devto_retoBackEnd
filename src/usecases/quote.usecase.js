@@ -1,4 +1,6 @@
 const QuoteRecipes = require("../models/quote-recipes.model");
+const { chromium } = require("playwright");
+const fs = require("fs");
 const Quote = require("../models/quote.model");
 const { createQuoteRecipe } = require("./quote-recipe.usecase");
 
@@ -51,10 +53,24 @@ const paidOutQuote = async (quoteId) => {
   return updatedQuote;
 };
 
+const toPDF = async (quoteId) => {
+  const quote = await Quote.findById(quoteId);
+  if (!quote) throw new Error("Cotización no encontrada");
+
+  const filePath = `pdfs/${quoteId}.pdf`;
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  await page.goto(`http://localhost:3000/quote/${quoteId}`);
+  await page.pdf({ path: filePath });
+  await browser.close();
+  return filePath;
+};
+
 module.exports = {
   getByQuoterId,
   createQuote,
   updateQuote,
   deleteQuote,
   paidOutQuote,
+  toPDF,
 };
