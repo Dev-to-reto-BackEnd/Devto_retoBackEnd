@@ -5,7 +5,9 @@ const Quote = require("../models/quote.model");
 const { createQuoteRecipe } = require("./quote-recipe.usecase");
 
 const getByQuoterId = async (quoterId) => {
-  const quoterQuotes = await Quote.find({ quoterId }).lean();
+  const quoterQuotes = await Quote.find({ quoterId })
+    .populate("clientId")
+    .lean();
 
   const quotePerQuotes = await Promise.all(
     quoterQuotes.map((quote) => {
