@@ -125,7 +125,7 @@ router.put("/:id", authMiddleware, async (request, response) => {
   }
 });
 
-router.get("/:id", authMiddleware, async (request, response) => {
+router.get("/:id", async (request, response) => {
   try {
     const quote = await getById(request.params.id);
     response.json({
