@@ -40,6 +40,10 @@ const quoteSchemma = new mongoose.Schema({
     type: String,
     required: false,
   },
+  paidOut: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Quote = mongoose.model("quote", quoteSchemma);
