@@ -62,7 +62,7 @@ const toPDF = async (quoteId) => {
   const filePath = `pdfs/${quoteId}.pdf`;
   const browser = await chromium.launch();
   const page = await browser.newPage();
-  await page.goto(`http://localhost:3000/quote/${quoteId}`);
+  await page.goto(`https://example.com/quote/${quoteId}`);
   await page.pdf({ path: filePath });
   await browser.close();
   return filePath;
