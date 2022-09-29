@@ -20,13 +20,25 @@ const getByQuoterId = async (quoterId) => {
     })
   );
 
+  // sacamos el total de cada receta
+  const costPerRecipe = materialsPerRecipe.map((recipeMaterials) => {
+    return recipeMaterials.reduce((acumulado, recipeMaterial) => {
+      return (
+        recipeMaterial.quantity * recipeMaterial.materialId.price + acumulado
+      );
+    }, 0);
+  });
+
   // agregamos la lista de materiales a su receta correspondiente y se retorna el arreglo
-  return quoterRecipes.map((recipe, index) => {
+  const recipeWithMaterials = quoterRecipes.map((recipe, index) => {
     return {
       ...recipe,
       materials: materialsPerRecipe[index],
+      cost: costPerRecipe[index],
     };
   });
+
+  return recipeWithMaterials;
 };
 
 const createRecipe = async (quoterId, data) => {
