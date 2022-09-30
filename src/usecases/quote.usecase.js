@@ -80,10 +80,19 @@ const getById = async (quoteId) => {
     })
   )
 
+  const costPerRecipe = quoteRecipesMaterials.map((recipeMaterials) => {
+    return recipeMaterials.reduce((acumulado, recipeMaterial) => {
+      return (
+        recipeMaterial.quantity * recipeMaterial.materialId.price + acumulado
+      );
+    }, 0);
+  });
+
   const completeQuoteRecipes = quoteRecipes.map((quoteRecipe, index) => {
     return {
       ...quoteRecipe,
-      materials: quoteRecipesMaterials[index]
+      materials: quoteRecipesMaterials[index],
+      total: costPerRecipe[index]
     }
   })
 
