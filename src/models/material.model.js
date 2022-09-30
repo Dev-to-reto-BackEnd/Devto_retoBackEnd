@@ -1,46 +1,46 @@
-const mongoose = require ("mongoose")
-const {Schema}=mongoose
+const mongoose = require("mongoose")
+const { Schema } = mongoose
 
 const materialSchemma = new mongoose.Schema({
     quoterId: {
         type: Schema.Types.ObjectId,
-        ref:"quoters",
-        required:true
+        ref: "quoters",
+        required: true
     },
-    name:{
+    name: {
         type: String,
         required: true,
-        minLength:3,
+        minLength: 3,
     },
-    unit:{
+    unit: {
         type: String,
         required: true,
-        maxLength: 10,
+        maxLength: 20,
     },
-    supplier:{
+    supplier: {
         type: String,
-        required:true,
+        required: true,
         minLength: 3,
     },
-    brand:{
+    brand: {
         type: String,
-        required:true,
+        required: true,
         minLength: 3,
     },
-    price:{
+    price: {
         type: Number,
-        required:true,
+        required: true,
     },
-    tags:{
+    tags: {
         type: Array,
         required: true
     },
-    createdAt:{
+    createdAt: {
         type: Date,
-        default: ()=> new Date()
+        default: () => new Date()
     }
 })
 
 const Material = mongoose.model("materials", materialSchemma)
 
-module.exports= Material
+module.exports = Material

@@ -6,6 +6,7 @@ const {
   paidOutQuote,
   toPDF,
   sendEmail,
+  getById,
 } = require("../usecases/quote.usecase");
 const fs = require("fs");
 const express = require("express");
@@ -138,6 +139,24 @@ router.put("/:id", authMiddleware, async (request, response) => {
     response.status(err.status || 500);
     response.json({
       success: false,
+      message: err.message,
+    });
+  }
+});
+
+router.get("/:id", async (request, response) => {
+  try {
+    const quote = await getById(request.params.id);
+    response.json({
+      success: true,
+      data: {
+        quote,
+      },
+    });
+  } catch (err) {
+    response.status(err.status || 500);
+    response.json({
+      succes: false,
       message: err.message,
     });
   }

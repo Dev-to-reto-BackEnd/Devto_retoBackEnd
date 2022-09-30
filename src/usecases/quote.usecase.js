@@ -3,6 +3,7 @@ const { chromium } = require("playwright");
 const fs = require("fs");
 const Quote = require("../models/quote.model");
 const { createQuoteRecipe } = require("./quote-recipe.usecase");
+const RecipeMaterials = require("../models/recipe-materials.model");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -64,7 +65,7 @@ const toPDF = async (quoteId) => {
   const filePath = `pdfs/${quoteId}.pdf`;
   const browser = await chromium.launch();
   const page = await browser.newPage();
-  await page.goto(`https://opsurveyapp.com/quote/pdf/${quoteId}`);
+  await page.goto(`https://example.com/quote/${quoteId}`);
   await page.pdf({ path: filePath });
   await browser.close();
   return filePath;
@@ -102,6 +103,46 @@ const sendEmail = async (quoteId) => {
 
   return sgMail.send(msg);
 };
+const getById = async (quoteId) => {
+  const quote = await Quote.findById(quoteId)
+    .populate("clientId quoterId")
+    .lean();
+
+  const quoteRecipes = await QuoteRecipes.find({ quoteId })
+    .populate("recipeId")
+    .lean();
+
+  const quoteRecipesMaterials = await Promise.all(
+    quoteRecipes.map((quoteRecipe) => {
+      return RecipeMaterials.find({ recipeId: quoteRecipe.recipeId })
+        .populate("materialId")
+        .lean();
+    })
+  );
+
+  const costPerRecipe = quoteRecipesMaterials.map((recipeMaterials) => {
+    return recipeMaterials.reduce((acumulado, recipeMaterial) => {
+      return (
+        recipeMaterial.quantity * recipeMaterial.materialId.price + acumulado
+      );
+    }, 0);
+  });
+
+  const completeQuoteRecipes = quoteRecipes.map((quoteRecipe, index) => {
+    return {
+      ...quoteRecipe,
+      materials: quoteRecipesMaterials[index],
+      total: costPerRecipe[index],
+    };
+  });
+
+  const quoteComplete = {
+    ...quote,
+    recipe: completeQuoteRecipes,
+  };
+
+  return quoteComplete;
+};
 
 module.exports = {
   getByQuoterId,
@@ -111,4 +152,5 @@ module.exports = {
   paidOutQuote,
   toPDF,
   sendEmail,
+  getById,
 };
