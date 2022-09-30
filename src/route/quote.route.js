@@ -97,7 +97,10 @@ router.get("/:id/pdf", async (request, response) => {
     const stat = fs.statSync(pdfPath);
     response.setHeader("Content-Length", stat.size);
     response.setHeader("Content-Type", "application/pdf");
-    response.setHeader("Content-Disposition", "attachment; filename=quote.pdf");
+    response.setHeader(
+      "Content-Disposition",
+      `attachment; filename=quote-${id}.pdf`
+    );
     file.pipe(response);
   } catch (err) {
     response.status(err.status || 500);
