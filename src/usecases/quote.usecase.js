@@ -76,7 +76,6 @@ const sendEmail = async (quoteId) => {
     .populate("clientId quoterId")
     .lean();
   if (!quote) throw new Error("Cotización no encontrada");
-
   const filePath = `pdfs/${quoteId}.pdf`;
   const browser = await chromium.launch();
   const page = await browser.newPage();
