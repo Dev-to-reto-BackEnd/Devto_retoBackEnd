@@ -108,7 +108,7 @@ router.get("/:id/pdf", async (request, response) => {
   }
 });
 
-route.get("/:id/email", async (request, response) => {
+router.get("/:id/email", async (request, response) => {
   try {
     const { id } = request.params;
     sendEmail(id);
