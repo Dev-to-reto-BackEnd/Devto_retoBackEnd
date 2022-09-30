@@ -110,4 +110,5 @@ module.exports = {
   deleteQuote,
   paidOutQuote,
   toPDF,
+  sendEmail,
 };

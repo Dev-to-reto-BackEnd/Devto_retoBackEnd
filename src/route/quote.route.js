@@ -5,6 +5,7 @@ const {
   deleteQuote,
   paidOutQuote,
   toPDF,
+  sendEmail,
 } = require("../usecases/quote.usecase");
 const fs = require("fs");
 const express = require("express");
@@ -97,6 +98,24 @@ router.get("/:id/pdf", async (request, response) => {
     response.setHeader("Content-Type", "application/pdf");
     response.setHeader("Content-Disposition", "attachment; filename=quote.pdf");
     file.pipe(response);
+  } catch (err) {
+    response.status(err.status || 500);
+    response.json({
+      succes: false,
+      message: err.message,
+    });
+  }
+});
+
+route.get("/:id/email", async (request, response) => {
+  try {
+    const { id } = request.params;
+    sendEmail(id);
+
+    response.json({
+      succes: true,
+      message: "email sent success",
+    });
   } catch (err) {
     response.status(err.status || 500);
     response.json({
