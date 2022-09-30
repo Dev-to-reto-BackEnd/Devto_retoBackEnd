@@ -4,6 +4,8 @@ const fs = require("fs");
 const Quote = require("../models/quote.model");
 const { createQuoteRecipe } = require("./quote-recipe.usecase");
 const RecipeMaterials = require("../models/recipe-materials.model");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const getByQuoterId = async (quoterId) => {
   const quoterQuotes = await Quote.find({ quoterId })
@@ -69,16 +71,54 @@ const toPDF = async (quoteId) => {
   return filePath;
 };
 
-const getById = async (quoteId) => {
-  const quote = await Quote.findById(quoteId).populate("clientId quoterId").lean()
+const sendEmail = async (quoteId) => {
+  const quote = await Quote.findById(quoteId)
+    .populate("clientId quoterId")
+    .lean();
+  if (!quote) throw new Error("Cotización no encontrada");
 
-  const quoteRecipes = await QuoteRecipes.find({ quoteId }).populate("recipeId").lean()
+  const filePath = `pdfs/${quoteId}.pdf`;
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  await page.goto(`https://opsurveyapp.com/quote/pdf/${quoteId}`);
+  await page.pdf({ path: filePath });
+  await browser.close();
+
+  attachment = fs.readFileSync(filePath).toString("base64");
+
+  const msg = {
+    to: quote.clientId.email,
+    from: "opsurvey03@gmail.com",
+    subject: `${quote.quoterId.businessName} envía cotización desde Opsurvey`,
+    text: "Buen día, \nAnexo cotización por el servicio solicitado \nquedo al pendiente de sus requerimientos y su amable resupuesta \nSaludos cordiales ",
+    attachments: [
+      {
+        content: attachment,
+        filename: `${quoteId}.pdf`,
+        type: "application/pdf",
+        disposition: "attachment",
+      },
+    ],
+  };
+
+  return sgMail.send(msg);
+};
+const getById = async (quoteId) => {
+  const quote = await Quote.findById(quoteId)
+    .populate("clientId quoterId")
+    .lean();
+
+  const quoteRecipes = await QuoteRecipes.find({ quoteId })
+    .populate("recipeId")
+    .lean();
 
   const quoteRecipesMaterials = await Promise.all(
     quoteRecipes.map((quoteRecipe) => {
-      return RecipeMaterials.find({ recipeId: quoteRecipe.recipeId }).populate("materialId").lean()
+      return RecipeMaterials.find({ recipeId: quoteRecipe.recipeId })
+        .populate("materialId")
+        .lean();
     })
-  )
+  );
 
   const costPerRecipe = quoteRecipesMaterials.map((recipeMaterials) => {
     return recipeMaterials.reduce((acumulado, recipeMaterial) => {
@@ -92,17 +132,17 @@ const getById = async (quoteId) => {
     return {
       ...quoteRecipe,
       materials: quoteRecipesMaterials[index],
-      total: costPerRecipe[index]
-    }
-  })
+      total: costPerRecipe[index],
+    };
+  });
 
   const quoteComplete = {
     ...quote,
     recipe: completeQuoteRecipes,
-  }
+  };
 
-  return quoteComplete
-}
+  return quoteComplete;
+};
 
 module.exports = {
   getByQuoterId,
@@ -111,5 +151,6 @@ module.exports = {
   deleteQuote,
   paidOutQuote,
   toPDF,
-  getById
+  sendEmail,
+  getById,
 };
